@@ -1,0 +1,69 @@
+# global:
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   evaluation_interval: 15s
+
+# rules_files:
+#   # - "first.rule"
+#   # - "second.rule"
+
+# alerting:
+#   alertmanager:
+#   - static_configs:
+#     - targets: []
+#     scheme: http
+#     timeout: 10s
+
+# scrape_configs:
+# # Make Prometheus scrape itself for metrics.
+# - job_name: 'prometheus'
+#   static_configs:
+#   - targets: ['localhost:9090']
+# - job_name: docker
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   metrics_path: /metrics
+#   scheme: http
+#   static_configs:
+#   - targets:
+#     - cadvisor: 8080
+# - job_name: voter
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   metrics_path: /metrics
+#   scheme: http
+#   static_configs:
+#   - targets:
+#     - voter: 5000
+# - job_name: result
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   metrics_path: /metrics
+#   scheme: http
+#   static_configs:
+#   - targets:
+#     - voter: 5001
+# - job_name: redis
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   metrics_path: /metrics
+#   scheme: http
+#   static_configs:
+#   - targets:
+#     - redis: 6379
+# - job_name: db
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   metrics_path: /metrics
+#   scheme: http
+#   static_configs:
+#   - targets:
+#     - db: 5432
+# - job_name: worker
+#   scrape_interval: 15s
+#   scrape_timeout: 10s
+#   metrics_path: /metrics
+#   scheme: http
+#   static_configs:
+#   - targets:
+#     - worker: 5001
