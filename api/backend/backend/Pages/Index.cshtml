@@ -3,8 +3,62 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<script src="@Url.Content("~/js/site.js")" type="text/javascript"></script>
+<script>
+    var rootPath = '@Url.Content("~")';
+</script>
+<div class="text-left" id="commentSection">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
 </div>
+
+<textarea rows="2" cols="20" id="NewComment"></textarea>
+
+
+<script>
+
+     var baseUrl = '@Url.Content("~/")';
+
+    function regleUrl(url) {
+        if (url.indexOf("~/") == 0) {
+            url = baseUrl + url.substring(2);
+        }
+        return url;
+    }
+
+    function postComment() {
+        console.log("test");
+        console.log(ResolveUrl("~/api/values/manette/xbox"));
+
+        var val = $("#NewComment").val();
+
+        $.ajax({
+            url: "https://localhost:32770/api/values/manette/xbox",
+            type: "POST",
+            headers: {
+                
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify({ 
+                "commentaire": val
+            }),
+            success: function (status) {
+                /*if (status != "success") {
+                    alert(status);
+                }*/
+
+                //$("#NewComment").hide();
+                //$("#NewCommentsBtn").val("Nouveau commentaire");
+                displayComments();
+            },
+            error: function (info) {
+                console.log(info);
+            }
+        }
+        );
+    }
+</script>
+
+<input id="NewCommentsBtn" onclick="postComment();" value="Nouveau commentaire" type="button" />
+
+
