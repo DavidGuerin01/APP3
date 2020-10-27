@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -31,14 +32,31 @@ namespace backend.Controllers
             //var comments = new List<string>();
 
             Comment cmt = new Comment();
-            cmt.commentaire = System.IO.File.ReadAllText("/tmp/xbox");
+            try
+            {
+                 cmt.commentaire = System.IO.File.ReadAllText("/tmp/xbox");
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    System.IO.File.Create("/tmp/xbox");
+                }
+                catch (Exception)
+                {
+                    _logger.LogDebug("err");
+                }
+                
+            }
+            
 
-            /*int i = 0;
-            int result = 0;
-            while(i < 100)
+            ulong i = 0;
+            ulong result = 0;
+            Thread.Sleep(10000);
+            /*while(i < 10000000)
             {
                 result += result * i;
-                
+                i++;
 
             }*/
 
