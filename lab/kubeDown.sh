@@ -1,3 +1,3 @@
 #bash
-kubectl -n lab delete pod,svc --all
+kubectl delete all --all -n lab
 kubectl delete ns lab
