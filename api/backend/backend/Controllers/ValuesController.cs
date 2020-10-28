@@ -52,13 +52,12 @@ namespace backend.Controllers
 
             ulong i = 0;
             ulong result = 0;
-            Thread.Sleep(10000);
-            /*while(i < 10000000)
+            while(i < 10000000)
             {
                 result += result * i;
                 i++;
 
-            }*/
+            }
 
             return Ok(cmt.commentaire);
         }
