@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: shop
+  name: shop
+spec:
+  type: NodePort
+  ports:
+  - name: "shop-service"
+    port: 8080
+    targetPort: 80
+    nodePort: 31080
+  selector:
+    app: shop
