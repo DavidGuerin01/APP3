@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: shop
+  name: shop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop
+  template:
+    metadata:
+      labels:
+        app: shop
+    spec:
+      containers:
+      - image: davidguerin01/backendhids:v3
+        name: shop
+        ports:
+        - containerPort: 443
+          name: shop
+        - containerPort: 80
+          name: shop
