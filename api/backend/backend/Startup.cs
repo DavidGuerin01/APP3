@@ -48,6 +48,7 @@ namespace backend
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+           
                 endpoints.MapRazorPages();
             });
         }

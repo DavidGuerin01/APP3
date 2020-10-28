@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,47 +15,91 @@ namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ValuesController : Controller
     {
-        // GET: api/<ValuesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        private readonly ILogger<ValuesController> _logger;
+
+        public ValuesController(ILogger<ValuesController> logger)
         {
-            return new string[] { "value1", "value2" };
+            _logger = logger;
         }
 
         // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        public IActionResult Comments()
         {
-            return "value";
+            //var comments = new List<string>();
+
+            Comment cmt = new Comment();
+            try
+            {
+                 cmt.commentaire = System.IO.File.ReadAllText("/tmp/xbox");
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    System.IO.File.Create("/tmp/xbox");
+                }
+                catch (Exception)
+                {
+                    _logger.LogDebug("err");
+                }
+                
+            }
+            
+
+            ulong i = 0;
+            ulong result = 0;
+            while(i < 10000000)
+            {
+                result += result * i;
+                i++;
+
+            }
+
+            return Ok(cmt.commentaire);
         }
 
         // POST api/<ValuesController>
         [HttpPost("manette/xbox")]
         public IActionResult PostXbox(Comment cmt)
-        {    
-            var jsonData = System.IO.File.ReadAllText("/etc/shadow");
+        {
+            try
+            {
 
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "/bin/sh";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
 
-            cmd.StandardInput.WriteLine("echo \"" + cmt.commentaire + "\" >> /tmp/xbox");
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
+                var jsonData = System.IO.File.ReadAllText("/etc/shadow");
 
-            cmd.WaitForExit();
-            //Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+                Process cmd = new Process();
+                cmd.StartInfo.FileName = "/bin/sh";
+                cmd.StartInfo.RedirectStandardInput = true;
+                cmd.StartInfo.RedirectStandardOutput = true;
+                cmd.StartInfo.CreateNoWindow = true;
+                cmd.StartInfo.UseShellExecute = false;
+                cmd.Start();
 
-            Console.WriteLine(cmt.commentaire);
-            //return Ok(cmd.StandardOutput.ReadToEnd());
+                cmd.StandardInput.WriteLine("echo \"" + cmt.commentaire + "\" >> /tmp/xbox");
+                cmd.StandardInput.Flush();
+                cmd.StandardInput.Close();
 
-            return Ok(System.IO.File.ReadAllText("/tmp/xbox"));
+                cmd.WaitForExit();
+                //Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+
+                Console.WriteLine(cmt.commentaire);
+                //return Ok(cmd.StandardOutput.ReadToEnd());
+
+                //return Ok(System.IO.File.ReadAllText("/tmp/xbox"));
+
+                //var commentaire = System.IO.File.ReadAllText("/tmp/xbox"));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString() );
+                throw;
+            }
+            return Ok("ok");
         }
 
         [HttpPost("shampoing")]
