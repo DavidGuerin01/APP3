@@ -18,7 +18,5 @@ spec:
       - image: davidguerin01/backendhids:v3
         name: shop
         ports:
-        - containerPort: 443
-          name: shop
         - containerPort: 80
           name: shop

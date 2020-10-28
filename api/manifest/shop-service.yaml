@@ -10,6 +10,6 @@ spec:
   - name: "shop-service"
     port: 8080
     targetPort: 80
-    nodePort: 31005
+    nodePort: 31080
   selector:
     app: shop
