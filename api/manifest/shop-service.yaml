@@ -5,9 +5,9 @@ metadata:
     app: shop
   name: shop
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-  - name: "shop-service"
+  - name: shop-service
     port: 8080
     targetPort: 80
     nodePort: 31080

@@ -15,7 +15,7 @@ spec:
         app: shop
     spec:
       containers:
-      - image: cocolat
+      - image: davidguerin01/backendhids:v4
         name: shop
         ports:
         - containerPort: 80

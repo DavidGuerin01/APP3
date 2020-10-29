@@ -1,7 +1,11 @@
 https://kubernetes.io/fr/docs/reference/kubectl/cheatsheet/
 
-kubectl logs <Pod's name>
+kubectl logs <Pod's name> -n <namespace>
 kubectl get pods -n lab
 kubectl get resource -n lab
 kubectl get namespace -n lab
 kubectl get all -n lab
+
+kubectl get service --all-namespaces
+kubectl delete pods --all -n monitoring
+kubectl logs prometheus-5b767f5845-5v8xk -n monitoring
