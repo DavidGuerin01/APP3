@@ -1,6 +1,6 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM davidguerin01/backendhids:v2 AS base
+FROM davidguerin01/backendhids:v8 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
