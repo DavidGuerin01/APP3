@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,40 +18,32 @@ namespace backend.Controllers
     [ApiController]
     public class ValuesController : Controller
     {
+        private static string XboxPath = @"/tmp/xbox.txt";
 
         private readonly ILogger<ValuesController> _logger;
 
         public ValuesController(ILogger<ValuesController> logger)
         {
             _logger = logger;
+
+            if (!System.IO.File.Exists(XboxPath))
+            {
+                // Create a file to write to.
+                string createText = string.Empty;
+                System.IO.File.WriteAllText(XboxPath, createText, Encoding.UTF8);
+            }
         }
 
         // GET api/<ValuesController>/5
         [HttpGet]
         public IActionResult Comments()
         {
-            //var comments = new List<string>();
-
             Comment cmt = new Comment();
-            try
-            {
-                 cmt.commentaire = System.IO.File.ReadAllText("/tmp/xbox");
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    System.IO.File.Create("/tmp/xbox");
-                }
-                catch (Exception)
-                {
-                    _logger.LogDebug("err");
-                }
-            }
+            cmt.commentaire = System.IO.File.ReadAllText(XboxPath);
 
             ulong i = 0;
             ulong result = 0;
-            while(i < 10000000)
+            while (i < 10000000)
             {
                 result += result * i;
                 i++;
@@ -75,7 +68,7 @@ namespace backend.Controllers
                 cmd.StartInfo.UseShellExecute = false;
                 cmd.Start();
 
-                cmd.StandardInput.WriteLine("echo \"" + cmt.commentaire + "\" >> /tmp/xbox");
+                cmd.StandardInput.WriteLine("echo \"" + cmt.commentaire + "\" >> " + XboxPath);
                 cmd.StandardInput.Flush();
                 cmd.StandardInput.Close();
 
@@ -85,7 +78,7 @@ namespace backend.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString() );
+                _logger.LogError(ex.ToString());
                 throw;
             }
             return Ok("ok");
