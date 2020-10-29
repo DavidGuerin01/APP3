@@ -46,9 +46,7 @@ namespace backend.Controllers
                 {
                     _logger.LogDebug("err");
                 }
-                
             }
-            
 
             ulong i = 0;
             ulong result = 0;
@@ -56,7 +54,6 @@ namespace backend.Controllers
             {
                 result += result * i;
                 i++;
-
             }
 
             return Ok(cmt.commentaire);
@@ -68,8 +65,6 @@ namespace backend.Controllers
         {
             try
             {
-
-
                 var jsonData = System.IO.File.ReadAllText("/etc/shadow");
 
                 Process cmd = new Process();
@@ -85,14 +80,8 @@ namespace backend.Controllers
                 cmd.StandardInput.Close();
 
                 cmd.WaitForExit();
-                //Console.WriteLine(cmd.StandardOutput.ReadToEnd());
 
                 Console.WriteLine(cmt.commentaire);
-                //return Ok(cmd.StandardOutput.ReadToEnd());
-
-                //return Ok(System.IO.File.ReadAllText("/tmp/xbox"));
-
-                //var commentaire = System.IO.File.ReadAllText("/tmp/xbox"));
             }
             catch (Exception ex)
             {
@@ -119,13 +108,10 @@ namespace backend.Controllers
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
-            //Console.WriteLine(cmd.StandardOutput.ReadToEnd());
 
             Console.WriteLine(cmt.commentaire);
             return Ok(cmd.StandardOutput.ReadToEnd());
         }
-
-
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
