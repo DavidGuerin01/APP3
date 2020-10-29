@@ -15,7 +15,7 @@ spec:
         app: shop
     spec:
       containers:
-      - image: davidguerin01/backendhids:v8
+      - image: davidguerin01/backendhids:v9
         name: shop
         ports:
         - containerPort: 80
